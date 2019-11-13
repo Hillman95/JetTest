@@ -11,6 +11,7 @@ import com.hillman.jettest.R
 import com.hillman.jettest.presentation.viewmodel.MembersViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import com.hillman.jettest.presentation.view.utils.EndlessScroll
+import com.hillman.jettest.presentation.view.utils.isNetworkAvailable
 import com.hillman.jettest.presentation.viewmodel.MembersViewModelFactory
 
 
@@ -31,7 +32,10 @@ class MembersActivity: AppCompatActivity(){
         getMembers()
 
         swiperefresh.setOnRefreshListener {
-            membersViewModel.refreshMembers()
+            if (this.isNetworkAvailable()){
+                membersViewModel.refreshMembers()
+            } else showLoading(false)
+
         }
 
     }
